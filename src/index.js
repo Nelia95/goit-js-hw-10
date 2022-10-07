@@ -15,6 +15,8 @@ inputText.addEventListener(
 );
 
 function searchCountryInfo(event) {
+  countryInfo.innerHTML = '';
+  countryList.innerHTML = '';
   const searchCountry = event.target.value;
   if (searchCountry === '') {
     return;
@@ -31,25 +33,30 @@ function createMarkupCountry(countries) {
   } else if (countries.length > 1) {
     const markup = countries
       .map(({ name, flags }) => {
-        return `<li class="country-item"><img class='flags' src="${flags.svg}" alt="${name.official}" width="50" height="60"><p class="country-name">${name.official}</p></li>`;
+        return `<li class="country-item"><img class='flags' src="${flags.svg}" alt="${name.official}" width="50" height="40"><p class="country-name">${name.official}</p></li>`;
       })
       .join('');
     countryList.innerHTML = markup;
   } else if (countries.length === 1) {
-    const languagesEl = Object.values(languages).join(', ');
     const markupInfo = countries
       .map(({ name, capital, flags, population, languages }) => {
-        return `<img class="country-info-img" src="${flags.svg}" alt="${name.official}" width="50" height="60">
-      <h2 class="country-info-title">${name.official}</h2>
+        return `<div class="box"><img class="country-info-img" src="${
+          flags.svg
+        }" alt="${name.official}" width="50" height="40">
+      <h2 class="country-info-title">${name.official}</h2></div>
       <ul class="country-info-list">
         <li class="country-info-item">
-          <p class="country-info-text">Capital: ${capital}</p>
+          <p class="country-info-text">Capital: <span class="text-info">${
+            capital[0]
+          }</span></p>
         </li>
         <li class="country-info-item">
-          <p class="country-info-text">Population: ${population}</p>
+          <p class="country-info-text">Population: <span class="text-info">${population}</span></p>
         </li>
         <li class="country-info-item">
-          <p class="country-info-text">Languages: ${languagesEl}</p>
+          <p class="country-info-text">Languages: <span class="text-info">${Object.values(
+            languages
+          )}</span></p>
         </li>
       </ul>`;
       })
